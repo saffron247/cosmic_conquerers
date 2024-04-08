@@ -6,5 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Users/ethan/OneDrive - James Madison University (Dukes)/Desktop/Schoolwork/CS349/downloads/multimedia2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
