@@ -35,7 +35,7 @@ public class ConquerersApplication extends JApplication implements ActionListene
     
     // Add the game screen
     VisualizationView view = gameScreen.getView();
-    view.setBounds(0, 0, WIDTH, HEIGHT);
+    view.setBounds(0, 100, WIDTH, HEIGHT - 100);
     contentPane.add(view);
   }
   
