@@ -28,7 +28,7 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
     
     ResourceFinder finder = ResourceFinder.createInstance(new resources.Marker());
     ContentFactory contentFactory = new ContentFactory(finder);
-    TransformableContent content = contentFactory.createContent("lil-guy.png");
+    TransformableContent content = contentFactory.createContent("spaceship.png");
     
     this.content = content;
     
