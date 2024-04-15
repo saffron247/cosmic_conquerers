@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import entities.AlienSprite;
 import entities.SpaceshipSprite;
@@ -16,13 +17,18 @@ public class ConquerersGame extends Stage
 
     setBackground(BACKGROUND_COLOR);
 
-    SpaceshipSprite spaceship = new SpaceshipSprite(300, 500);
+    SpaceshipSprite spaceship = new SpaceshipSprite(375, 600);
+    spaceship.setScale(0.25);
     addKeyListener(spaceship);
+
+    ArrayList<AlienSprite> aliens = new ArrayList<>();
     for (int i = 0; i < 5; i++)
     {
       for (int j = 0; j < 4; j++)
       {
         AlienSprite alien = new AlienSprite(i, j);
+        alien.setScale(0.25);
+        aliens.add(alien);
         add(alien);
       }
     }

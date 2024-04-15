@@ -13,6 +13,9 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
   private static final double SPEED = 30.0;
   private boolean leftHeld;
   private boolean rightHeld;
+  private boolean spaceHeld;
+  private boolean color = false;
+  private ContentFactory contentFactory;
   private double x;
   private double y;
   private TransformableContent content;
@@ -27,8 +30,8 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
     rightHeld = false;
     
     ResourceFinder finder = ResourceFinder.createInstance(new resources.Marker());
-    ContentFactory contentFactory = new ContentFactory(finder);
-    TransformableContent content = contentFactory.createContent("spaceship.png");
+    this.contentFactory = new ContentFactory(finder);
+    TransformableContent content = contentFactory.createContent("spaceship1.png");
     
     this.content = content;
     
@@ -55,6 +58,11 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
       x += SPEED;
     }
     setLocation(x, y);
+    // shoot
+    if (spaceHeld) {content = contentFactory.createContent("spaceship" + (color ? "1" : "2") +".png");
+      spaceHeld = false;
+      color = !color;
+    }
   }
 
   @Override
@@ -71,6 +79,9 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
     }
     if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
       rightHeld = true;
+    }
+    if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+      spaceHeld = true;
     }
   }
 

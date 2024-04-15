@@ -11,8 +11,8 @@ import visual.statik.sampled.ContentFactory;
 public class AlienSprite extends AbstractSprite
 {
 
-  private static final int WIDTH = 200;
-  private static final int HEIGHT = 200;
+  private static final int WIDTH = 150;
+  private static final int HEIGHT = 75;
   private int damage;
   private TransformableContent content;
 
@@ -34,7 +34,7 @@ public class AlienSprite extends AbstractSprite
     content = contentFactory.createContent("alien" + row + ".png");
 
 
-    setLocation(col * WIDTH, row * HEIGHT - 200);
+    setLocation(col * WIDTH + 160, row * HEIGHT - 75);
     setVisible(true);
 
   }
