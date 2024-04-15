@@ -26,7 +26,7 @@ public class ConquerersGame extends Stage
     {
       for (int j = 0; j < 4; j++)
       {
-        AlienSprite alien = new AlienSprite(i, j);
+        AlienSprite alien = new AlienSprite(i, j, (i == 0 && j == 0));
         alien.setScale(0.25);
         aliens.add(alien);
         add(alien);
