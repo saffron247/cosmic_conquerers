@@ -17,7 +17,7 @@ public class ConquerersGame extends Stage
 
     setBackground(BACKGROUND_COLOR);
 
-    SpaceshipSprite spaceship = new SpaceshipSprite(375, 600);
+    SpaceshipSprite spaceship = new SpaceshipSprite(371, 600);
     spaceship.setScale(0.25);
     addKeyListener(spaceship);
 

@@ -50,11 +50,11 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
   public void handleTick(int time)
   {
     // make sure the dude doesn't run off the screen
-    if (leftHeld && x > 0) {
+    if (leftHeld && x > 15) {
       x -= SPEED;
     }
-    // 750 came from (screen width - dude width)
-    if (rightHeld && x < 750) {
+    // 690 came from (screen width - dude width)
+    if (rightHeld && x < 690) {
       x += SPEED;
     }
     setLocation(x, y);
