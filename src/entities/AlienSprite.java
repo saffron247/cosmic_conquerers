@@ -1,5 +1,16 @@
 package entities;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Sequence;
+import javax.sound.midi.Sequencer;
+
+import org.xml.sax.InputSource;
+
 import io.ResourceFinder;
 import visual.dynamic.described.AbstractSprite;
 import visual.statik.TransformableContent;
@@ -20,6 +31,10 @@ public class AlienSprite extends AbstractSprite
   private static boolean setMoveChange = false;
   private int damage;
   private TransformableContent content;
+  private ResourceFinder finder;
+  private InputStream is;
+  private Sequence seq;
+  private Sequencer sequencer;
   private double x;
   private double y;
   private int tickCount = 0;
@@ -41,7 +56,7 @@ public class AlienSprite extends AbstractSprite
     damage = 5 - row;
     this.last = last;
 
-    ResourceFinder finder = ResourceFinder.createInstance(new resources.Marker());
+    finder = ResourceFinder.createInstance(new resources.Marker());
     ContentFactory contentFactory = new ContentFactory(finder);
     content = contentFactory.createContent("alien" + row + ".png");
     this.x = col * WIDTH + 160;
@@ -83,9 +98,21 @@ public class AlienSprite extends AbstractSprite
 
   /**
    * Gets hit.
+   * @throws IOException 
+   * @throws InvalidMidiDataException 
+   * @throws MidiUnavailableException 
    */
-  public void hit()
+  public void hit() throws InvalidMidiDataException, IOException, MidiUnavailableException
   {
+    finder = ResourceFinder.createInstance(new resources.Marker());
+    is = finder.findInputStream("pew.m4a");
+    seq = MidiSystem.getSequence(is);
+    sequencer = MidiSystem.getSequencer();
+    sequencer.open();
+
+    sequencer.setSequence(seq);
+    sequencer.start();
+    
     damage--;
     if (damage <= 0)
     {
