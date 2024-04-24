@@ -10,7 +10,7 @@ import visual.statik.TransformableContent;
 import visual.statik.sampled.ContentFactory;
 
 /**
- * Displays the opening screen, and when the spacebar is pressed, the game appears
+ * Displays the opening screen, and when the spacebar is pressed, the game appears.
  */
 public class OpeningAnimation extends Screen implements KeyListener
 {
@@ -18,6 +18,11 @@ public class OpeningAnimation extends Screen implements KeyListener
   private ConquerersGame gameScreen;
   private StatsScreen statsScreen;
   
+  /**
+   * Constructor for the opening screen.
+   * @param game
+   * @param stats
+   */
   public OpeningAnimation(final ConquerersGame game, final StatsScreen stats)
   { 
     super(16);
@@ -42,12 +47,12 @@ public class OpeningAnimation extends Screen implements KeyListener
   }
 
   @Override
-  public void keyTyped(KeyEvent e)
+  public void keyTyped(final KeyEvent e)
   {
   }
 
   @Override
-  public void keyPressed(KeyEvent e)
+  public void keyPressed(final KeyEvent e)
   {
     if (e.getKeyCode() == KeyEvent.VK_SPACE) {
       // Space key pressed
@@ -59,7 +64,7 @@ public class OpeningAnimation extends Screen implements KeyListener
   }
 
   @Override
-  public void keyReleased(KeyEvent e)
+  public void keyReleased(final KeyEvent e)
   {
     // TODO Auto-generated method stub
     

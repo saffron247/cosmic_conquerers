@@ -9,8 +9,6 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
 
-import org.xml.sax.InputSource;
-
 import io.ResourceFinder;
 import visual.dynamic.described.AbstractSprite;
 import visual.statik.TransformableContent;
@@ -49,6 +47,8 @@ public class AlienSprite extends AbstractSprite
    *          Row
    * @param col
    *          Col
+   * @param last
+   *          Last
    */
   public AlienSprite(final int row, final int col, final boolean last)
   {
@@ -98,9 +98,10 @@ public class AlienSprite extends AbstractSprite
 
   /**
    * Gets hit.
-   * @throws IOException 
-   * @throws InvalidMidiDataException 
-   * @throws MidiUnavailableException 
+   * 
+   * @throws IOException
+   * @throws InvalidMidiDataException
+   * @throws MidiUnavailableException
    */
   public void hit() throws InvalidMidiDataException, IOException, MidiUnavailableException
   {
@@ -112,7 +113,7 @@ public class AlienSprite extends AbstractSprite
 
     sequencer.setSequence(seq);
     sequencer.start();
-    
+
     damage--;
     if (damage <= 0)
     {
@@ -129,37 +130,46 @@ public class AlienSprite extends AbstractSprite
   @Override
   public void handleTick(final int arg0)
   {
-	  // Requires move
-	  if (tickCount % tickStep == 0) {
-		  if (goRight) {
-			  x += movement;
-		  } else {
-			  x -= movement;
-		  }
-		  if (goDown) {
-			  y += movement;
-			  if (last) {
-				  goDown = false;
-			  }
-		  }
-		  // Setting overall bounds of aliens
-		  rightest = Math.max(x, rightest);
-		  leftest = Math.min(x, leftest);
-		  setLocation(x, y);
-	  }
-	  // Hits right wall
-	  if (last && rightest >= 725) {
-		  goRight = false;
-		  goDown = true;
-		  rightest = Double.NEGATIVE_INFINITY;
-	  // Hits left wall
-	  } else if (last && leftest <= 25) {
-		  goRight = true;
-		  goDown = true;
-		  leftest = Double.POSITIVE_INFINITY;
-	  }	  
-	  
-	  tickCount++;
+    // Requires move
+    if (tickCount % tickStep == 0)
+    {
+      if (goRight)
+      {
+        x += movement;
+      }
+      else
+      {
+        x -= movement;
+      }
+      if (goDown)
+      {
+        y += movement;
+        if (last)
+        {
+          goDown = false;
+        }
+      }
+      // Setting overall bounds of aliens
+      rightest = Math.max(x, rightest);
+      leftest = Math.min(x, leftest);
+      setLocation(x, y);
+    }
+    // Hits right wall
+    if (last && rightest >= 725)
+    {
+      goRight = false;
+      goDown = true;
+      rightest = Double.NEGATIVE_INFINITY;
+      // Hits left wall
+    }
+    else if (last && leftest <= 25)
+    {
+      goRight = true;
+      goDown = true;
+      leftest = Double.POSITIVE_INFINITY;
+    }
+
+    tickCount++;
 
   }
 
