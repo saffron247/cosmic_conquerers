@@ -5,22 +5,25 @@ import visual.dynamic.described.AbstractSprite;
 import visual.statik.TransformableContent;
 import visual.statik.sampled.ContentFactory;
 
-public class EnemyBulletSprite extends AbstractSprite
+public class SpaceshipBullet extends AbstractSprite
 {
-
   private final ContentFactory contentFactory;
   private TransformableContent content;
   private double x;
   private double y;
 
-  public EnemyBulletSprite(double x, double y) {
+  public SpaceshipBullet(double x, double y) {
     this.x = x;
     this.y = y;
 
     ResourceFinder finder = ResourceFinder.createInstance(new resources.Marker());
     this.contentFactory = new ContentFactory(finder);
-    TransformableContent content = contentFactory.createContent("spaceship1.png");
+    TransformableContent content = contentFactory.createContent("line-bullet.png");
     this.content = content;
+    
+    setLocation(x, y);
+    
+    setVisible(true);
   }
 
   @Override
@@ -32,7 +35,7 @@ public class EnemyBulletSprite extends AbstractSprite
   @Override
   public void handleTick(int time)
   {
-    setLocation(x, y + 1);
-
+    y -= 5;
+    setLocation(x, y);
   }
 }

@@ -2,6 +2,7 @@ package entities;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 
 import io.ResourceFinder;
 import visual.dynamic.described.AbstractSprite;
@@ -19,13 +20,16 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
   private double x;
   private double y;
   private TransformableContent content;
+  private List<SpaceshipBullet> bulletPool;
   
-  public SpaceshipSprite(double x, double y)
+  public SpaceshipSprite(double x, double y, List<SpaceshipBullet> bulletPool)
   {
     super();
     
     this.x = x;
     this.y = y;
+    this.bulletPool = bulletPool;
+    
     leftHeld = false;
     rightHeld = false;
     
@@ -57,12 +61,16 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
     if (rightHeld && x < 690) {
       x += SPEED;
     }
-    setLocation(x, y);
     // shoot
-    if (spaceHeld) {content = contentFactory.createContent("spaceship" + (color ? "1" : "2") +".png");
+    if (spaceHeld)
+    {
+      content = contentFactory.createContent("spaceship" + (color ? "1" : "2") +".png");
       spaceHeld = false;
       color = !color;
+      SpaceshipBullet bullet = new SpaceshipBullet(x + 25, y - 50);
+      bulletPool.add(bullet);
     }
+    setLocation(x, y);
   }
 
   @Override
