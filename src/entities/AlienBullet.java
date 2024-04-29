@@ -11,12 +11,14 @@ public class AlienBullet extends RuleBasedSprite
   public boolean isAlive = true;
   public boolean isNew = true;
   private double y;
+  private int parentInt;
 
-  public AlienBullet(TransformableContent content, double x, double y) {
+  public AlienBullet(TransformableContent content, double x, double y, int parentInt) {
     super(content);
     
     this.x = x;
     this.y = y;
+    this.parentInt = parentInt;
     
     setLocation(x, y);
     setVisible(true);
@@ -25,6 +27,9 @@ public class AlienBullet extends RuleBasedSprite
   @Override
   public void handleTick(int time)
   {
+//    for (Sprite antagonist : antagonists) {
+//      System.out.println(antagonist);
+//    }
     y += SPEED;
     setLocation(x, y);
 
@@ -32,21 +37,19 @@ public class AlienBullet extends RuleBasedSprite
     if (y >= 800) {
       isAlive = false;
     }
-    
-    Sprite spaceship;
 
+    // fun fact, now way to just query the spaceship, you have
+    // to run through this loop even though we know there will
+    // only ever be checking one entity. RIP performance.
     for (Sprite antagonist : antagonists)
     {
-      spaceship = antagonist;
-      if (intersects(spaceship))
+      if (intersects(antagonist))
       {
-        if (ConquerersGame.aliensAlive.indexOf(spaceship) != 0)
-        {
-          ((SpaceshipSprite) spaceship).hit();
-          System.out.println("Score:" + ConquerersGame.score);
+          ((SpaceshipSprite) antagonist).hit();
+          System.out.println(antagonist);
+          System.out.println("Hit by alien: " + this.parentInt);
           isAlive = false;
-        }
-        break;
+          break;
       }
     }
     isNew = false;

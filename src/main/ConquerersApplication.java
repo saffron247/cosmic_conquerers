@@ -15,8 +15,8 @@ public class ConquerersApplication extends JApplication implements ActionListene
   private static final int HEIGHT = 800;
   private static ConquerersGame gameScreen;
   private static StatsScreen statsScreen;
-  private OpeningAnimation openingAnimation;
-  private static EndingScreen endingView;
+  private final OpeningAnimation openingAnimation;
+  private static EndingScreen endingScreen;
 
   public ConquerersApplication(final String[] args)
   {
@@ -24,8 +24,7 @@ public class ConquerersApplication extends JApplication implements ActionListene
     gameScreen = new ConquerersGame();
     statsScreen = new StatsScreen();
     openingAnimation = new OpeningAnimation(gameScreen, statsScreen);
-    endingView = new EndingScreen(gameScreen, statsScreen);
-
+    endingScreen = new EndingScreen(gameScreen, statsScreen);
   }
   
   @Override
@@ -61,17 +60,20 @@ public class ConquerersApplication extends JApplication implements ActionListene
     contentPane.add(statsView);
 
     // Add the Ending Screen
-    VisualizationView endingView = new EndingScreen(gameScreen, statsScreen).getView();
+    VisualizationView endingView = endingScreen.getView();
     endingView.setBounds(0, 0, WIDTH, HEIGHT);
     endingView.setVisible(false);
     contentPane.add(endingView);
   }
 
-  public static void gameOver() {
+  public static void gameOver(final boolean won) {
     System.out.println("Game Over Called");
     gameScreen.getView().setVisible(false);
+    gameScreen.stop();
     statsScreen.getView().setVisible(false);
-    endingView.getView().setVisible(true);
+    statsScreen.stop();
+    endingScreen.ending(won);
+    endingScreen.getView().setVisible(true);
   }
 
   public static StatsScreen getStatScreen() {

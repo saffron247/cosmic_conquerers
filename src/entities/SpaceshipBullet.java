@@ -47,8 +47,6 @@ public class SpaceshipBullet extends RuleBasedSprite
       alien = antagonist;
       if (intersects(alien))
       {
-        System.out.println(ConquerersGame.aliensPool.indexOf(alien));
-        System.out.println(alien.getBounds2D(true).toString());
         if (ConquerersGame.aliensAlive.indexOf(alien) != 0)
         {
           ((AlienSprite) alien).hit();

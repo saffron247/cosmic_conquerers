@@ -167,6 +167,10 @@ public class AlienSprite extends AbstractSprite
       leftest = Math.min(x, leftest);
       setLocation(x, y);
     }
+    // Gets to bottom aka lose
+    if (last && y == 500) {
+      ConquerersApplication.gameOver(false);
+    }
     // Hits right wall
     if (last && rightest >= 725)
     {
@@ -192,10 +196,10 @@ public class AlienSprite extends AbstractSprite
       content = contentFactory.createContent("alien" + row + "1.png");
     }
 
-    if (isAlive && rand.nextInt(100) == 1)
+    if (isAlive && ConquerersGame.aliensAlive.indexOf(this) != 0 && rand.nextInt(100) == 1)
     {
       TransformableContent content = contentFactory.createContent("line-bullet.png");
-      AlienBullet bullet = new AlienBullet(content, x + 25, y - 50);
+      AlienBullet bullet = new AlienBullet(content, x + 25, y - 50, ConquerersGame.aliensAlive.indexOf(this));
       bulletPool.add(bullet);
     }
 
