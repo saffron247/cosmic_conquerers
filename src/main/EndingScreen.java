@@ -15,17 +15,19 @@ import java.awt.event.KeyListener;
  */
 public class EndingScreen extends Stage
 {
+  private static final Color BACKGROUND_COLOR = new Color(0, 0, 0);
+  private static final Color WHITE = new Color(255, 255, 255);
+  private static final Color GREEN = new Color(72, 208, 62);
   private ArcadeFont ending;
+  private ArcadeFont score;
   private ConquerersGame gameScreen;
   private StatsScreen statsScreen;
-  private static final Color BACKGROUND_COLOR = new Color(0, 0, 0);
-  private static final Color WHITE = new Color(255,255,255);
-  private static final Color GREEN = new Color(72, 208, 62);
   private int line = 40;
   private int fontSize = 50;
 
   /**
    * Constructor for the opening screen.
+   * 
    * @param game
    * @param stats
    */
@@ -35,16 +37,27 @@ public class EndingScreen extends Stage
     System.out.println("Ahhhhh");
     gameScreen = game;
     statsScreen = stats;
-    
-    setBackground(new Color(0,0,0));
-    this.ending = new ArcadeFont(WHITE, "", fontSize, 20, line);
+
+    setBackground(BACKGROUND_COLOR);
+    this.ending = new ArcadeFont(GREEN, "", 80, 180, 300);
+    this.score = new ArcadeFont(GREEN, "", 80, 70, 450);
+
     add(ending);
-    
+    add(score);
+
     start();
   }
 
-  public void ending(final boolean won) {
-    ending.changeString(won ? "Nice" : "Eat Shit");
+  /**
+   * Changes the string displayed on the screen.
+   * 
+   * @param won
+   *          true if the player won, false if the player lost
+   */
+  public void ending(final boolean won)
+  {
+    ending.changeString(won ? "YOU   WIN!" : "GAME   OVER");
+    score.changeString("FINAL   SCORE   " + statsScreen.getScore());
   }
 
 }

@@ -66,6 +66,10 @@ public class StatsScreen extends Stage
       remove(lifes[lifeNum]);
     }
   }
+
+  public String getScore() {
+    return scoreNumber + "";
+  }
   
   // account for score
   public void changeScore(final int playerScore) {
