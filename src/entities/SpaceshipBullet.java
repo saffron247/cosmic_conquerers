@@ -48,11 +48,14 @@ public class SpaceshipBullet extends RuleBasedSprite
     {
       alien = iterator.next();
       if (intersects(alien)) {
-//        ((AbstractSprite)alien).setVisible(false);
-//        System.out.println(ConquerersGame.aliensPool.indexOf(alien));
-//        ConquerersGame.aliensAlive.remove(alien);
-//        timeAlive = SPACESHIP_BULLET_TTL;
-//        break;
+        ((AbstractSprite)alien).setVisible(false);
+        System.out.println(ConquerersGame.aliensPool.indexOf(alien));
+        System.out.println(alien.getBounds2D(true).toString());
+        if (ConquerersGame.aliensAlive.indexOf(alien) != 0) {
+          ConquerersGame.aliensAlive.remove(alien);
+          timeAlive = SPACESHIP_BULLET_TTL;
+        }
+        break;
       }
     }
   }

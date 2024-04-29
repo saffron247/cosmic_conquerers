@@ -28,7 +28,7 @@ public class AlienSprite extends AbstractSprite
   private static double leftest = Double.POSITIVE_INFINITY;
   private static boolean setMoveChange = false;
   private int damage;
-  private TransformableContent content;
+  public TransformableContent content;
   private ResourceFinder finder;
   private InputStream is;
   private Sequence seq;
