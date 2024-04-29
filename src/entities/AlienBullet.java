@@ -45,15 +45,17 @@ public class AlienBullet extends RuleBasedSprite
     // ryan put the above comment earlier, but i have no idea what he's talking about;
     // i managed to get this working just by accessing index 0 of antagonists, no loop
     // required
-    SpaceshipSprite spaceship = (SpaceshipSprite) antagonists.get(0);
-    if (intersects(spaceship))
-    {
-        spaceship.hit();
-//        System.out.println(spaceship);
-//        System.out.println("Hit by alien: " + this.parentInt);
-//        System.out.println(spaceship.getBounds2D());
-//        System.out.println(this.getBounds2D());
-        isAlive = false;
+    if (antagonists.size() > 0) {
+      SpaceshipSprite spaceship = (SpaceshipSprite) antagonists.get(0);
+      if (intersects(spaceship))
+      {
+          spaceship.hit();
+//          System.out.println(spaceship);
+//          System.out.println("Hit by alien: " + this.parentInt);
+//          System.out.println(spaceship.getBounds2D());
+//          System.out.println(this.getBounds2D());
+          isAlive = false;
+      }
     }
     isNew = false;
   }
