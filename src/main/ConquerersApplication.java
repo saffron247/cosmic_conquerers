@@ -56,6 +56,12 @@ public class ConquerersApplication extends JApplication implements ActionListene
     statsView.setBounds(0, 0, WIDTH, HEIGHT - 700);
     statsView.setVisible(false);
     contentPane.add(statsView);
+
+    // Add the Ending Screen
+    VisualizationView endingView = new EndingScreen(gameScreen, statsScreen).getView();
+    endingView.setBounds(0, 0, WIDTH, HEIGHT);
+    endingView.setVisible(false);
+    contentPane.add(endingView);
   }
   
   /**
