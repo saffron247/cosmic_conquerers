@@ -45,6 +45,10 @@ class ArcadeFont implements SimpleContent
      System.out.println("not created");
    }
   }
+
+  public void changeString(final String string) {
+    this.text = string;
+  }
   
   @Override
   public void render(Graphics g)

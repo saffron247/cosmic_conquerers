@@ -19,8 +19,9 @@ public class StatsScreen extends Stage
   private int fontSize = 50;
   
   private ArcadeFont score;
-  private int lifeNum;
-  TransformableContent lifes[];
+  private int scoreNumber = 0;
+  private static int lifeNum;
+  static TransformableContent[] lifes;
   
 
   public StatsScreen()
@@ -31,7 +32,7 @@ public class StatsScreen extends Stage
     ArcadeFont scoreWord = new ArcadeFont(WHITE, "SCORE", fontSize, 20, line);
     add(scoreWord);
     
-    ArcadeFont score = new ArcadeFont(GREEN, "0", fontSize, 200, line);
+    this.score = new ArcadeFont(GREEN, "0", fontSize, 200, line);
     add(score);
     
     ArcadeFont lives = new ArcadeFont(WHITE, "LIVES", fontSize, 490, line);
@@ -52,6 +53,10 @@ public class StatsScreen extends Stage
     
     start();
   }
+
+  public boolean isFullyDead() {
+    return lifeNum == 0;
+  }
   
   // Remove the lil guy's life when he dies(the life num will change)
   public void death(){
@@ -64,6 +69,7 @@ public class StatsScreen extends Stage
   
   // account for score
   public void changeScore(final int playerScore) {
-   
+    scoreNumber = Math.max(0, scoreNumber + playerScore);
+    score.changeString("" + scoreNumber);
   }
 }

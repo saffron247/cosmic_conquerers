@@ -3,6 +3,7 @@ package entities;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiSystem;
@@ -16,10 +17,12 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import io.ResourceFinder;
+import main.ConquerersApplication;
 import main.ConquerersGame;
 import visual.dynamic.described.AbstractSprite;
 import visual.statik.TransformableContent;
 import visual.statik.sampled.ContentFactory;
+import java.util.Random;
 
 /**
  * Alien class.
@@ -34,6 +37,7 @@ public class AlienSprite extends AbstractSprite
   private static double rightest = Double.NEGATIVE_INFINITY;
   private static double leftest = Double.POSITIVE_INFINITY;
   private static boolean setMoveChange = false;
+  private final Random rand;
   private int damage;
   public TransformableContent content;
   private ResourceFinder finder;
@@ -48,6 +52,8 @@ public class AlienSprite extends AbstractSprite
   private boolean last;
   private ContentFactory contentFactory;
   private int row;
+  private List<AlienBullet> bulletPool;
+  private boolean isAlive = true;
 
   /**
    * Alien constructor.
@@ -59,7 +65,7 @@ public class AlienSprite extends AbstractSprite
    * @param last
    *          Last
    */
-  public AlienSprite(final int row, final int col, final boolean last)
+  public AlienSprite(final int row, final int col, final boolean last, List<AlienBullet>bulletPool)
   {
     super();
     damage = 5 - row;
@@ -73,6 +79,8 @@ public class AlienSprite extends AbstractSprite
     this.y = row * HEIGHT - 75;
     setLocation(x, y);
     setVisible(true);
+    this.rand = new Random();
+    this.bulletPool = bulletPool;
 
   }
 
@@ -119,8 +127,10 @@ public class AlienSprite extends AbstractSprite
     if (damage <= 0)
     {
       setVisible(false);
+      isAlive = false;
       ConquerersGame.aliensAlive.remove(this);
     }
+    ConquerersApplication.getStatScreen().changeScore(100);
   }
 
   @Override
@@ -181,6 +191,16 @@ public class AlienSprite extends AbstractSprite
     {
       content = contentFactory.createContent("alien" + row + "1.png");
     }
+
+    if (isAlive && rand.nextInt(100) == 1)
+    {
+      TransformableContent content = contentFactory.createContent("line-bullet.png");
+      AlienBullet bullet = new AlienBullet(content, x + 25, y - 50);
+      bulletPool.add(bullet);
+    }
+
+
+
 
     tickCount++;
 

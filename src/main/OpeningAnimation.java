@@ -59,6 +59,7 @@ public class OpeningAnimation extends Screen implements KeyListener
       System.out.println("Space key pressed on Screen");
       getView().setVisible(false);
       gameScreen.getView().setVisible(true);
+      gameScreen.start();
       statsScreen.getView().setVisible(true);
     }
   }

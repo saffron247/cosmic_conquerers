@@ -13,16 +13,19 @@ public class ConquerersApplication extends JApplication implements ActionListene
 {
   private static final int WIDTH = 800;
   private static final int HEIGHT = 800;
-  private ConquerersGame gameScreen;
-  private StatsScreen statsScreen;
+  private static ConquerersGame gameScreen;
+  private static StatsScreen statsScreen;
   private OpeningAnimation openingAnimation;
-  
+  private static EndingScreen endingView;
+
   public ConquerersApplication(final String[] args)
   {
     super(WIDTH, HEIGHT);
     gameScreen = new ConquerersGame();
     statsScreen = new StatsScreen();
     openingAnimation = new OpeningAnimation(gameScreen, statsScreen);
+    endingView = new EndingScreen(gameScreen, statsScreen);
+
   }
   
   @Override
@@ -62,6 +65,17 @@ public class ConquerersApplication extends JApplication implements ActionListene
     endingView.setBounds(0, 0, WIDTH, HEIGHT);
     endingView.setVisible(false);
     contentPane.add(endingView);
+  }
+
+  public static void gameOver() {
+    System.out.println("Game Over Called");
+    gameScreen.getView().setVisible(false);
+    statsScreen.getView().setVisible(false);
+    endingView.getView().setVisible(true);
+  }
+
+  public static StatsScreen getStatScreen() {
+    return statsScreen;
   }
   
   /**

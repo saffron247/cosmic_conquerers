@@ -1,25 +1,18 @@
 package entities;
 
-import java.io.IOException;
-import java.util.Iterator;
-
-import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiUnavailableException;
-
 import main.ConquerersGame;
-import visual.dynamic.described.AbstractSprite;
 import visual.dynamic.described.RuleBasedSprite;
 import visual.dynamic.described.Sprite;
 import visual.statik.TransformableContent;
 
-public class SpaceshipBullet extends RuleBasedSprite
+public class AlienBullet extends RuleBasedSprite
 {
   private static final double SPEED = 20.0;
   public boolean isAlive = true;
   public boolean isNew = true;
   private double y;
 
-  public SpaceshipBullet(TransformableContent content, double x, double y) {
+  public AlienBullet(TransformableContent content, double x, double y) {
     super(content);
     
     this.x = x;
@@ -32,26 +25,25 @@ public class SpaceshipBullet extends RuleBasedSprite
   @Override
   public void handleTick(int time)
   {
-    y -= SPEED;
+    y += SPEED;
     setLocation(x, y);
 
     // Goes off-screen
-    if (y <= 0) {
+    if (y >= 800) {
       isAlive = false;
     }
     
-    Sprite alien;
+    Sprite spaceship;
 
     for (Sprite antagonist : antagonists)
     {
-      alien = antagonist;
-      if (intersects(alien))
+      spaceship = antagonist;
+      if (intersects(spaceship))
       {
-        System.out.println(ConquerersGame.aliensPool.indexOf(alien));
-        System.out.println(alien.getBounds2D(true).toString());
-        if (ConquerersGame.aliensAlive.indexOf(alien) != 0)
+        if (ConquerersGame.aliensAlive.indexOf(spaceship) != 0)
         {
-          ((AlienSprite) alien).hit();
+          ((SpaceshipSprite) spaceship).hit();
+          System.out.println("Score:" + ConquerersGame.score);
           isAlive = false;
         }
         break;

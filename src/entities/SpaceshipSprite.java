@@ -14,6 +14,9 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import io.ResourceFinder;
+import main.ConquerersApplication;
+import main.ConquerersGame;
+import main.StatsScreen;
 import visual.dynamic.described.AbstractSprite;
 import visual.statik.sampled.ContentFactory;
 import visual.statik.TransformableContent;
@@ -71,7 +74,7 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
       x += SPEED;
     }
     // shoot
-    if (spaceHeld && bulletPool.size() == 0)
+    if (spaceHeld && bulletPool.isEmpty())
     {
       content = contentFactory.createContent("spaceship" + (color ? "1" : "2") +".png");
       spaceHeld = false;
@@ -109,7 +112,7 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-      clip.start();
+//      clip.start();
       
       TransformableContent content = contentFactory.createContent("line-bullet.png");
       SpaceshipBullet bullet = new SpaceshipBullet(content, x + 25, y - 50);
@@ -147,5 +150,10 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
     if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
       rightHeld = false;
     }
+  }
+
+  public void hit() {
+    ConquerersApplication.getStatScreen().death();
+    ConquerersApplication.getStatScreen().changeScore(-50);
   }
 }

@@ -1,74 +1,61 @@
 package main;
 
-import java.awt.Color;
+import io.ResourceFinder;
+import visual.dynamic.sampled.Screen;
+import visual.statik.TransformableContent;
+import visual.statik.sampled.ContentFactory;
+
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import visual.dynamic.sampled.Screen;
-
 /**
- * Displays the ending screen.
+ * Displays the opening screen, and when the spacebar is pressed, the game appears.
  */
 public class EndingScreen extends Screen implements KeyListener
 {
-
-  private ArcadeFont score;
+  private ArcadeFont lives;
   private ConquerersGame gameScreen;
   private StatsScreen statsScreen;
 
   /**
-   * Constructor for the ending screen.
-   * 
+   * Constructor for the opening screen.
    * @param game
-   *          the game screen
    * @param stats
-   *          the stats screen
    */
   public EndingScreen(final ConquerersGame game, final StatsScreen stats)
   {
     super(16);
     gameScreen = game;
     statsScreen = stats;
-
-    gameScreen.getView().setVisible(false);
-    statsScreen.getView().setVisible(false);
-
-    setBackground(new Color(0, 0, 0));
-
-    score = new ArcadeFont(new Color(255, 255, 255),
-        "GAME   OVER\n" + "FINAL   SCORE:   ", 40, 255, 510);
-    add(score);
-
+    
+    setBackground(new Color(60,80,90));
+    
     start();
   }
 
   @Override
-  public void keyPressed(final KeyEvent arg0)
+  public void keyTyped(final KeyEvent e)
   {
-    
-    // press space to restart or close
-    if (arg0.getKeyCode() == KeyEvent.VK_SPACE)
-    {
+  }
 
-    }
-    else
-    {
-      System.exit(0);
+  @Override
+  public void keyPressed(final KeyEvent e)
+  {
+    if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+      // Space key pressed
+      System.out.println("Space key pressed on Screen");
+      getView().setVisible(false);
+      gameScreen.getView().setVisible(true);
+      gameScreen.start();
+      statsScreen.getView().setVisible(true);
     }
   }
 
   @Override
-  public void keyReleased(final KeyEvent arg0)
+  public void keyReleased(final KeyEvent e)
   {
     // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
-  }
 
-  @Override
-  public void keyTyped(final KeyEvent arg0)
-  {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
   }
-
 }
