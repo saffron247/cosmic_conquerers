@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -8,8 +9,14 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import io.ResourceFinder;
+import main.ConquerersGame;
 import visual.dynamic.described.AbstractSprite;
 import visual.statik.TransformableContent;
 import visual.statik.sampled.ContentFactory;
@@ -106,21 +113,13 @@ public class AlienSprite extends AbstractSprite
    * @throws InvalidMidiDataException
    * @throws MidiUnavailableException
    */
-  public void hit() throws InvalidMidiDataException, IOException, MidiUnavailableException
+  public void hit()
   {
-    finder = ResourceFinder.createInstance(new resources.Marker());
-    is = finder.findInputStream("pew.m4a");
-    seq = MidiSystem.getSequence(is);
-    sequencer = MidiSystem.getSequencer();
-    sequencer.open();
-
-    sequencer.setSequence(seq);
-    sequencer.start();
-
     damage--;
     if (damage <= 0)
     {
       setVisible(false);
+      ConquerersGame.aliensAlive.remove(this);
     }
   }
 

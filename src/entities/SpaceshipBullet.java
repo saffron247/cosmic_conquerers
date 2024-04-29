@@ -1,6 +1,10 @@
 package entities;
 
+import java.io.IOException;
 import java.util.Iterator;
+
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiUnavailableException;
 
 import main.ConquerersGame;
 import visual.dynamic.described.AbstractSprite;
@@ -10,7 +14,7 @@ import visual.statik.TransformableContent;
 
 public class SpaceshipBullet extends RuleBasedSprite
 {
-  private static final double SPEED = 30.0;
+  private static final double SPEED = 20.0;
   public static final int SPACESHIP_BULLET_TTL = 50;
   private int timeAlive;
   private double x;
@@ -48,11 +52,10 @@ public class SpaceshipBullet extends RuleBasedSprite
     {
       alien = iterator.next();
       if (intersects(alien)) {
-        ((AbstractSprite)alien).setVisible(false);
+        ((AlienSprite)alien).hit();
         System.out.println(ConquerersGame.aliensPool.indexOf(alien));
         System.out.println(alien.getBounds2D(true).toString());
         if (ConquerersGame.aliensAlive.indexOf(alien) != 0) {
-          ConquerersGame.aliensAlive.remove(alien);
           timeAlive = SPACESHIP_BULLET_TTL;
         }
         break;

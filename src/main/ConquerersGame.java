@@ -30,6 +30,7 @@ public class ConquerersGame extends Stage
 
     aliensPool = new ArrayList<AlienSprite>();
     aliensAlive = new ArrayList<AlienSprite>();
+    aliensAlive.add(new AlienSprite(-1, -1, false));
     for (int i = 1; i < 5; i++)
     {
       for (int j = 0; j < 4; j++)
@@ -53,7 +54,9 @@ public class ConquerersGame extends Stage
     
     for (SpaceshipBullet bullet : spaceshipBulletPool) {
       if (bullet.getTimeAlive() >= SpaceshipBullet.SPACESHIP_BULLET_TTL) {
+        spaceshipBulletPool.remove(bullet);
         remove(bullet);
+        break;
       } else {
         if (bullet.getTimeAlive() == 0) {
           bullet.setScale(0.15);
