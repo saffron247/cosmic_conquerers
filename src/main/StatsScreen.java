@@ -19,6 +19,7 @@ public class StatsScreen extends Stage
   private int fontSize = 50;
   
   private ArcadeFont score;
+  private int playerScore;
   private int lifeNum;
   TransformableContent lifes[];
   
@@ -60,6 +61,10 @@ public class StatsScreen extends Stage
       lifeNum--;
       remove(lifes[lifeNum]);
     }
+  }
+
+  public int getScore() {
+    return playerScore;
   }
   
   // account for score
