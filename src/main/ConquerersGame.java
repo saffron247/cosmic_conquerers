@@ -106,9 +106,10 @@ public class ConquerersGame extends Stage
       ConquerersApplication.gameOver(false);
     }
     // Won the game
-    if (aliensAlive.isEmpty()) {
+    if (aliensAlive.size() == 1) {
       ConquerersApplication.gameOver(true);
     }
+
   }
 
 }
