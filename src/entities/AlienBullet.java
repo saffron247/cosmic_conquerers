@@ -15,12 +15,12 @@ public class AlienBullet extends RuleBasedSprite
 
   public AlienBullet(TransformableContent content, double x, double y, int parentInt) {
     super(content);
+    setLocation(x, y);
     
     this.x = x;
     this.y = y;
     this.parentInt = parentInt;
     
-    setLocation(x, y);
     setVisible(true);
   }
 
@@ -41,16 +41,19 @@ public class AlienBullet extends RuleBasedSprite
     // fun fact, now way to just query the spaceship, you have
     // to run through this loop even though we know there will
     // only ever be checking one entity. RIP performance.
-    for (Sprite antagonist : antagonists)
+    
+    // ryan put the above comment earlier, but i have no idea what he's talking about;
+    // i managed to get this working just by accessing index 0 of antagonists, no loop
+    // required
+    SpaceshipSprite spaceship = (SpaceshipSprite) antagonists.get(0);
+    if (intersects(spaceship))
     {
-      if (intersects(antagonist))
-      {
-          ((SpaceshipSprite) antagonist).hit();
-          System.out.println(antagonist);
-          System.out.println("Hit by alien: " + this.parentInt);
-          isAlive = false;
-          break;
-      }
+        spaceship.hit();
+//        System.out.println(spaceship);
+//        System.out.println("Hit by alien: " + this.parentInt);
+//        System.out.println(spaceship.getBounds2D());
+//        System.out.println(this.getBounds2D());
+        isAlive = false;
     }
     isNew = false;
   }

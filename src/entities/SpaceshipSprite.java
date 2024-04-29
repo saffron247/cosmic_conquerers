@@ -73,6 +73,7 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
     if (rightHeld && x < 690) {
       x += SPEED;
     }
+    setLocation(x, y);
     // shoot
     if (spaceHeld && bulletPool.isEmpty())
     {
@@ -118,7 +119,6 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
       SpaceshipBullet bullet = new SpaceshipBullet(content, x + 25, y - 50);
       bulletPool.add(bullet);
     }
-    setLocation(x, y);
   }
 
   @Override

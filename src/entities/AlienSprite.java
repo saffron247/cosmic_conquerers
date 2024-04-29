@@ -198,7 +198,7 @@ public class AlienSprite extends AbstractSprite
 
     if (isAlive && ConquerersGame.aliensAlive.indexOf(this) != 0 && rand.nextInt(100) == 1)
     {
-      TransformableContent content = contentFactory.createContent("line-bullet.png");
+      TransformableContent content = contentFactory.createContent("ziggy-bullet.png");
       AlienBullet bullet = new AlienBullet(content, x + 25, y - 50, ConquerersGame.aliensAlive.indexOf(this));
       bulletPool.add(bullet);
     }

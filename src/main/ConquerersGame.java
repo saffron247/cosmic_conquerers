@@ -97,7 +97,7 @@ public class ConquerersGame extends Stage
         bullet.handleTick(time);
       }
     }
-    System.out.println("Number of enemy bullets: " + alienBulletPool.size());
+//    System.out.println("Number of enemy bullets: " + alienBulletPool.size());
 
 
     // Lost the game
