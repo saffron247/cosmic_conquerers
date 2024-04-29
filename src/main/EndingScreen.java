@@ -4,13 +4,12 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import app.JApplication;
 import visual.dynamic.sampled.Screen;
 
 /**
  * Displays the ending screen.
  */
-public class EndingSreen extends Screen implements KeyListener
+public class EndingScreen extends Screen implements KeyListener
 {
 
   private ArcadeFont score;
@@ -25,7 +24,7 @@ public class EndingSreen extends Screen implements KeyListener
    * @param stats
    *          the stats screen
    */
-  public EndingSreen(final ConquerersGame game, final StatsScreen stats)
+  public EndingScreen(final ConquerersGame game, final StatsScreen stats)
   {
     super(16);
     gameScreen = game;
@@ -50,10 +49,7 @@ public class EndingSreen extends Screen implements KeyListener
     // press space to restart or close
     if (arg0.getKeyCode() == KeyEvent.VK_SPACE)
     {
-      gameScreen.getView().setVisible(true);
-      statsScreen.getView().setVisible(true);
-      getView().setVisible(false);
-      gameScreen.start();
+
     }
     else
     {
