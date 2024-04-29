@@ -5,7 +5,7 @@ import visual.dynamic.described.AbstractSprite;
 import visual.statik.TransformableContent;
 import visual.statik.sampled.ContentFactory;
 
-public class SpaceshipBulletSprite extends AbstractSprite
+public class EnemyBullet extends AbstractSprite
 {
 
   private final ContentFactory contentFactory;
@@ -13,7 +13,7 @@ public class SpaceshipBulletSprite extends AbstractSprite
   private double x;
   private double y;
 
-  public SpaceshipBulletSprite(double x, double y) {
+  public EnemyBullet(double x, double y) {
     this.x = x;
     this.y = y;
 
@@ -32,7 +32,7 @@ public class SpaceshipBulletSprite extends AbstractSprite
   @Override
   public void handleTick(int time)
   {
-    setLocation(x, y - 1);
+    setLocation(x, y + 1);
 
   }
 }
