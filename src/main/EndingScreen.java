@@ -36,7 +36,7 @@ public class EndingScreen extends Screen implements KeyListener
     setBackground(new Color(0, 0, 0));
 
     score = new ArcadeFont(new Color(255, 255, 255),
-        "GAME   OVER\n" + "FINAL   SCORE:   " + stats.getScore(), 40, 255, 510);
+        "GAME   OVER\n" + "FINAL   SCORE:   ", 40, 255, 510);
     add(score);
 
     start();

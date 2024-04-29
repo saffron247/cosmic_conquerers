@@ -12,8 +12,8 @@ import visual.dynamic.described.Stage;
 public class ConquerersGame extends Stage
 {
   private static final Color BACKGROUND_COLOR = new Color(0, 0, 0);
+  private static final int SPACESHIP_BULLET_TTL = 50;
   private List<SpaceshipBullet> spaceshipBulletPool;
-  private int bulletCount = 0;
 
   public ConquerersGame()
   {
@@ -48,14 +48,16 @@ public class ConquerersGame extends Stage
   {
     super.handleTick(time);
     
-    if (spaceshipBulletPool.size() > bulletCount) {
-      for (int i = bulletCount; i < spaceshipBulletPool.size(); i++) {
-        spaceshipBulletPool.get(i).setScale(0.25);
-        add(spaceshipBulletPool.get(i));
-      }
-    }
     for (SpaceshipBullet bullet : spaceshipBulletPool) {
-      bullet.handleTick(time);
+      if (bullet.getTimeAlive() >= SPACESHIP_BULLET_TTL) {
+        remove(bullet);
+      } else {
+        if (bullet.getTimeAlive() == 0) {
+          bullet.setScale(0.15);
+          add(bullet);
+        }
+        bullet.handleTick(time);
+      }
     }
   }
 
