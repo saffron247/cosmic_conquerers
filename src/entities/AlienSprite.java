@@ -39,6 +39,8 @@ public class AlienSprite extends AbstractSprite
   private int tickStep = 4;
   private static int movement = 10;
   private boolean last;
+  private ContentFactory contentFactory;
+  private int row;
 
   /**
    * Alien constructor.
@@ -55,10 +57,11 @@ public class AlienSprite extends AbstractSprite
     super();
     damage = 5 - row;
     this.last = last;
+    this.row = row;
 
     finder = ResourceFinder.createInstance(new resources.Marker());
-    ContentFactory contentFactory = new ContentFactory(finder);
-    content = contentFactory.createContent("alien" + row + ".png");
+    contentFactory = new ContentFactory(finder);
+    content = contentFactory.createContent("alien" + row + "1.png");
     this.x = col * WIDTH + 160;
     this.y = row * HEIGHT - 75;
     setLocation(x, y);
@@ -149,6 +152,7 @@ public class AlienSprite extends AbstractSprite
           goDown = false;
         }
       }
+      
       // Setting overall bounds of aliens
       rightest = Math.max(x, rightest);
       leftest = Math.min(x, leftest);
@@ -167,6 +171,16 @@ public class AlienSprite extends AbstractSprite
       goRight = true;
       goDown = true;
       leftest = Double.POSITIVE_INFINITY;
+    }
+    
+    // changes the content
+    if (tickCount % 8 < 4)
+    {
+      content = contentFactory.createContent("alien" + row + "2.png");
+    }
+    else
+    {
+      content = contentFactory.createContent("alien" + row + "1.png");
     }
 
     tickCount++;
