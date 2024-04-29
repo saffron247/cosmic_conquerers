@@ -1,39 +1,32 @@
 package entities;
 
-import io.ResourceFinder;
-import visual.dynamic.described.AbstractSprite;
-import visual.statik.TransformableContent;
-import visual.statik.sampled.ContentFactory;
+import java.util.Iterator;
 
-public class SpaceshipBullet extends AbstractSprite
+import main.ConquerersGame;
+import visual.dynamic.described.AbstractSprite;
+import visual.dynamic.described.RuleBasedSprite;
+import visual.dynamic.described.Sprite;
+import visual.statik.TransformableContent;
+
+public class SpaceshipBullet extends RuleBasedSprite
 {
   private static final double SPEED = 30.0;
+  public static final int SPACESHIP_BULLET_TTL = 50;
   private int timeAlive;
-  private final ContentFactory contentFactory;
-  private TransformableContent content;
   private double x;
   private double y;
 
-  public SpaceshipBullet(double x, double y) {
+  public SpaceshipBullet(TransformableContent content, double x, double y) {
+    super(content);
+    
     this.x = x;
     this.y = y;
     
     this.timeAlive = 0;
-
-    ResourceFinder finder = ResourceFinder.createInstance(new resources.Marker());
-    this.contentFactory = new ContentFactory(finder);
-    TransformableContent content = contentFactory.createContent("line-bullet.png");
-    this.content = content;
     
     setLocation(x, y);
     
     setVisible(true);
-  }
-
-  @Override
-  protected TransformableContent getContent()
-  {
-    return content;
   }
   
   public int getTimeAlive()
@@ -47,5 +40,20 @@ public class SpaceshipBullet extends AbstractSprite
     y -= SPEED;
     timeAlive += 1;
     setLocation(x, y);
+    
+    Sprite alien;
+    
+    Iterator<Sprite> iterator = antagonists.iterator();
+    while (iterator.hasNext())
+    {
+      alien = iterator.next();
+      if (intersects(alien)) {
+//        ((AbstractSprite)alien).setVisible(false);
+//        System.out.println(ConquerersGame.aliensPool.indexOf(alien));
+//        ConquerersGame.aliensAlive.remove(alien);
+//        timeAlive = SPACESHIP_BULLET_TTL;
+//        break;
+      }
+    }
   }
 }

@@ -12,8 +12,9 @@ import visual.dynamic.described.Stage;
 public class ConquerersGame extends Stage
 {
   private static final Color BACKGROUND_COLOR = new Color(0, 0, 0);
-  private static final int SPACESHIP_BULLET_TTL = 50;
   private List<SpaceshipBullet> spaceshipBulletPool;
+  public static List<AlienSprite> aliensPool;
+  public static List<AlienSprite> aliensAlive;
 
   public ConquerersGame()
   {
@@ -27,14 +28,16 @@ public class ConquerersGame extends Stage
     spaceship.setScale(0.25);
     addKeyListener(spaceship);
 
-    ArrayList<AlienSprite> aliens = new ArrayList<>();
-    for (int i = 0; i < 5; i++)
+    aliensPool = new ArrayList<AlienSprite>();
+    aliensAlive = new ArrayList<AlienSprite>();
+    for (int i = 1; i < 5; i++)
     {
       for (int j = 0; j < 4; j++)
       {
-        AlienSprite alien = new AlienSprite(i, j, (i == 0 && j == 0));
+        AlienSprite alien = new AlienSprite(i, j, (i == 1 && j == 0));
         alien.setScale(0.25);
-        aliens.add(alien);
+        aliensPool.add(alien);
+        aliensAlive.add(alien);
         add(alien);
       }
     }
@@ -49,11 +52,14 @@ public class ConquerersGame extends Stage
     super.handleTick(time);
     
     for (SpaceshipBullet bullet : spaceshipBulletPool) {
-      if (bullet.getTimeAlive() >= SPACESHIP_BULLET_TTL) {
+      if (bullet.getTimeAlive() >= SpaceshipBullet.SPACESHIP_BULLET_TTL) {
         remove(bullet);
       } else {
         if (bullet.getTimeAlive() == 0) {
           bullet.setScale(0.15);
+          for (AlienSprite alien : aliensAlive) {
+            bullet.addAntagonist(alien);
+          }
           add(bullet);
         }
         bullet.handleTick(time);

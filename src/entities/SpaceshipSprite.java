@@ -67,7 +67,9 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
       content = contentFactory.createContent("spaceship" + (color ? "1" : "2") +".png");
       spaceHeld = false;
       color = !color;
-      SpaceshipBullet bullet = new SpaceshipBullet(x + 25, y - 50);
+      
+      TransformableContent content = contentFactory.createContent("line-bullet.png");
+      SpaceshipBullet bullet = new SpaceshipBullet(content, x + 25, y - 50);
       bulletPool.add(bullet);
     }
     setLocation(x, y);
