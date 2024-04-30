@@ -13,18 +13,15 @@ public class AlienBullet extends RuleBasedSprite
   private static final double SPEED = 20.0;
   private boolean isAlive = true;
   private boolean isNew = true;
-  private double y;
 
   /**
    * Constructor for the AlienBullet.
    * 
-   * @param content
-   * @param x
-   * @param y
-   * @param parentInt
+   * @param content Alien bullet content
+   * @param x Location x coordinate
+   * @param y Location y coordinate
    */
-  public AlienBullet(final TransformableContent content, final double x, final double y,
-      final int parentInt)
+  public AlienBullet(final TransformableContent content, final double x, final double y)
   {
     super(content);
     setLocation(x, y);
@@ -58,9 +55,6 @@ public class AlienBullet extends RuleBasedSprite
   @Override
   public void handleTick(final int time)
   {
-    // for (Sprite antagonist : antagonists) {
-    // System.out.println(antagonist);
-    // }
     y += SPEED;
     setLocation(x, y);
 
@@ -70,13 +64,6 @@ public class AlienBullet extends RuleBasedSprite
       isAlive = false;
     }
 
-    // fun fact, now way to just query the spaceship, you have
-    // to run through this loop even though we know there will
-    // only ever be checking one entity. RIP performance.
-
-    // ryan put the above comment earlier, but i have no idea what he's talking about;
-    // i managed to get this working just by accessing index 0 of antagonists, no loop
-    // required
     if (antagonists.size() > 0)
     {
       SpaceshipSprite spaceship = (SpaceshipSprite) antagonists.get(0);
@@ -84,10 +71,6 @@ public class AlienBullet extends RuleBasedSprite
       if (intersects(spaceship) && boundRect.getX() != 0 && boundRect.getY() != 0)
       {
         spaceship.hit();
-        // System.out.println(spaceship);
-        // System.out.println("Hit by alien: " + this.parentInt);
-        // System.out.println(spaceship.getBounds2D());
-        // System.out.println(this.getBounds2D());
         isAlive = false;
       }
     }

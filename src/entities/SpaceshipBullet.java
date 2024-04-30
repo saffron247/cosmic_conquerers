@@ -15,14 +15,13 @@ public class SpaceshipBullet extends RuleBasedSprite
   private static final double SPEED = 20.0;
   private boolean isAlive = true;
   private boolean isNew = true;
-  private double y;
 
   /**
    * Constructor for the SpaceshipBullet.
    * 
-   * @param content
-   * @param x
-   * @param y
+   * @param content Spaceship bullet content
+   * @param x Location x coordinate
+   * @param y Location y coordinate
    */
   public SpaceshipBullet(final TransformableContent content, final double x, final double y)
   {

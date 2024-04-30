@@ -6,8 +6,9 @@ import io.ResourceFinder;
 import visual.dynamic.described.Stage;
 import visual.statik.TransformableContent;
 import visual.statik.sampled.ContentFactory;
+
 /**
- * Displays the score, and number of lives left
+ * Displays the score, and the number of lives left.
  */
 public class StatsScreen extends Stage
 {
@@ -20,10 +21,12 @@ public class StatsScreen extends Stage
   
   private ArcadeFont score;
   private int scoreNumber = 0;
-  private static int lifeNum;
-  static TransformableContent[] lifes;
+  private int lifeNum;
+  private TransformableContent[] lifes;
   
-
+  /**
+   * Base Constructor.
+   */
   public StatsScreen()
   {
     super(100);
@@ -54,12 +57,21 @@ public class StatsScreen extends Stage
     start();
   }
 
-  public boolean isFullyDead() {
+  /**
+   * Checks if the player is out of lives.
+   * 
+   * @return True if the player is out of lives; false otherwise
+   */
+  public boolean isFullyDead()
+  {
     return lifeNum == 0;
   }
   
-  // Remove the lil guy's life when he dies(the life num will change)
-  public void death(){
+  /**
+   * Removes a life from the screen.
+   */
+  public void death()
+  {
     if (lifeNum > 0)
     {
       lifeNum--;
@@ -67,12 +79,23 @@ public class StatsScreen extends Stage
     }
   }
 
-  public String getScore() {
+  /**
+   * Gets the score string (for display in the ending screen).
+   * 
+   * @return The score string
+   */
+  public String getScore() 
+  {
     return scoreNumber + "";
   }
   
-  // account for score
-  public void changeScore(final int playerScore) {
+  /**
+   * Adjust the score value by a new value provided by the player.
+   * 
+   * @param playerScore The value to add to the score
+   */
+  public void changeScore(final int playerScore) 
+  {
     scoreNumber = Math.max(0, scoreNumber + playerScore);
     score.changeString("" + scoreNumber);
   }

@@ -29,8 +29,6 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
   private boolean rightHeld;
   private boolean color = false;
   private ContentFactory contentFactory;
-  private double x;
-  private double y;
   private TransformableContent content;
   private TransformableContent bulletContent;
   private List<SpaceshipBullet> bulletPool;
@@ -38,9 +36,9 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
   /**
    * Constructor for the SpaceshipSprite.
    * 
-   * @param x
-   * @param y
-   * @param bulletPool
+   * @param x Starting x coordinate
+   * @param y Starting y coordinate
+   * @param bulletPool Pool of bullets
    */
   public SpaceshipSprite(final double x, final double y, final List<SpaceshipBullet> bulletPool)
   {
@@ -57,7 +55,6 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
     this.contentFactory = new ContentFactory(finder);
     content = contentFactory.createContent("spaceship1.png");
 
-
     setLocation(x, y);
 
     setVisible(true);
@@ -72,12 +69,11 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
   @Override
   public void handleTick(final int time)
   {
-    // make sure the dude doesn't run off the screen
+    // Prevent spaceship from going off edge of the screen
     if (leftHeld && x > 15)
     {
       x -= SPEED;
     }
-    // 690 came from (screen width - dude width)
     if (rightHeld && x < 690)
     {
       x += SPEED;
@@ -88,7 +84,7 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
   @Override
   public void keyTyped(final KeyEvent e)
   {
-    // TODO Auto-generated method stub
+    // N/A
   }
 
   @Override
@@ -104,10 +100,11 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
     }
     if (e.getKeyCode() == KeyEvent.VK_SPACE && bulletPool.isEmpty())
     {
+      // Change color
       content = contentFactory.createContent("spaceship" + (color ? "1" : "2") + ".png");
-      // spaceHeld = false;
       color = !color;
 
+      // Generate sound
       ResourceFinder finder = ResourceFinder.createInstance(new resources.Marker());
       InputStream is = finder.findInputStream("laser_sound.wav");
 
@@ -134,27 +131,24 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
       }
       catch (LineUnavailableException exc)
       {
-        // TODO Auto-generated catch block
         exc.printStackTrace();
       }
-      // Tell the Clip to acquire any required system
-      // resources and become operational
+      // Tell the Clip to acquire any required system resources and become operational
       try
       {
         clip.open(stream);
       }
       catch (LineUnavailableException exc)
       {
-        // TODO Auto-generated catch block
         exc.printStackTrace();
       }
       catch (IOException exc)
       {
-        // TODO Auto-generated catch block
         exc.printStackTrace();
       }
       clip.start();
 
+      // Create bullet
       bulletContent = contentFactory.createContent("line-bullet.png");
       SpaceshipBullet bullet = new SpaceshipBullet(bulletContent, x + 25, y - 50);
       bulletPool.add(bullet);

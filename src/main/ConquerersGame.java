@@ -66,7 +66,7 @@ public class ConquerersGame extends Stage
   /**
    * Get the aliens pool.
    * 
-   * @return aliensPool
+   * @return aliensPool Pool of all aliens
    */
   public static List<AlienSprite> getAliensPool()
   {
@@ -76,7 +76,7 @@ public class ConquerersGame extends Stage
   /**
    * Get the aliens alive.
    * 
-   * @return aliensAlive
+   * @return aliensAlive Pool of living aliens
    */
   public static List<AlienSprite> getAliensAlive()
   {
@@ -136,12 +136,10 @@ public class ConquerersGame extends Stage
         bullet.handleTick(time);
       }
     }
-    // System.out.println("Number of enemy bullets: " + alienBulletPool.size());
 
     // Lost the game
     if (ConquerersApplication.getStatScreen().isFullyDead())
     {
-      System.out.println("Game Over");
       ConquerersApplication.gameOver(false);
     }
     // Won the game

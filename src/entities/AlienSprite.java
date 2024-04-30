@@ -1,10 +1,6 @@
 package entities;
 
-import java.io.IOException;
 import java.util.List;
-
-import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiUnavailableException;
 
 import io.ResourceFinder;
 import main.ConquerersApplication;
@@ -33,8 +29,6 @@ public class AlienSprite extends AbstractSprite
   private int damage;
   private TransformableContent content;
   private ResourceFinder finder;
-  private double x;
-  private double y;
   private int tickCount = 0;
   private int tickStep = 4;
   private boolean last;
@@ -76,10 +70,6 @@ public class AlienSprite extends AbstractSprite
 
   /**
    * Gets hit.
-   * 
-   * @throws IOException
-   * @throws InvalidMidiDataException
-   * @throws MidiUnavailableException
    */
   public void hit()
   {
@@ -160,8 +150,7 @@ public class AlienSprite extends AbstractSprite
     if (isAlive && ConquerersGame.getAliensAlive().indexOf(this) != 0 && rand.nextInt(100) == 1)
     {
       content = contentFactory.createContent("ziggy-bullet.png");
-      AlienBullet bullet = new AlienBullet(content, x + 25, y + 20,
-          ConquerersGame.getAliensAlive().indexOf(this));
+      AlienBullet bullet = new AlienBullet(content, x + 25, y + 20);
       bulletPool.add(bullet);
     }
 
