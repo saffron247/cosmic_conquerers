@@ -24,6 +24,12 @@ class ArcadeFont implements SimpleContent
   
   /**
    * Constructor for making the font.
+   * 
+   * @param c Font color
+   * @param t Displayed text
+   * @param fontSize Font size
+   * @param x Location, x coordinate
+   * @param y Location, y coordinate
    */
   public ArcadeFont (final Color c, final String t, final int fontSize, final int x, final int y)
   {
@@ -34,24 +40,27 @@ class ArcadeFont implements SimpleContent
     
     ResourceFinder finder = ResourceFinder.createInstance(new resources.Marker());
     InputStream arcadeFontStream = finder.findInputStream("ARCADECLASSIC.TTF");
-    try {
+    try
+    {
       arcadeFont = Font.createFont(Font.TRUETYPE_FONT, arcadeFontStream);
       GraphicsEnvironment ge = 
           GraphicsEnvironment.getLocalGraphicsEnvironment();
       ge.registerFont(arcadeFont);
       arcadeFont = arcadeFont.deriveFont((float)fontSize);
-   } catch (IOException|FontFormatException e) {
-        //Handle exception
-     System.out.println("not created");
-   }
+    } catch (IOException|FontFormatException e)
+    {
+      // Handle exception
+      System.out.println("font not created");
+    }
   }
 
-  public void changeString(final String string) {
+  public void changeString(final String string)
+  {
     this.text = string;
   }
   
   @Override
-  public void render(Graphics g)
+  public void render(final Graphics g)
   {
     g.setColor(fontColor);
     g.setFont(arcadeFont);

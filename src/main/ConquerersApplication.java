@@ -30,7 +30,7 @@ public class ConquerersApplication extends JApplication
     gameScreen = new ConquerersGame();
     statsScreen = new StatsScreen();
     openingAnimation = new OpeningAnimation(gameScreen, statsScreen);
-    endingScreen = new EndingScreen(gameScreen, statsScreen);
+    endingScreen = new EndingScreen(statsScreen);
   }
 
   @Override
