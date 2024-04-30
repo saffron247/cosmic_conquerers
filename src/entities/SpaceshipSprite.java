@@ -128,7 +128,7 @@ public class SpaceshipSprite extends AbstractSprite implements KeyListener
             // TODO Auto-generated catch block
             exc.printStackTrace();
         }
-//      clip.start();
+      clip.start();
       
       TransformableContent content = contentFactory.createContent("line-bullet.png");
       SpaceshipBullet bullet = new SpaceshipBullet(content, x + 25, y - 50);
