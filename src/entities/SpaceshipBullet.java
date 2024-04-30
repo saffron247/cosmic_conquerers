@@ -1,5 +1,6 @@
 package entities;
 
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -47,7 +48,10 @@ public class SpaceshipBullet extends RuleBasedSprite
       alien = antagonist;
       if (intersects(alien))
       {
-        if (ConquerersGame.aliensAlive.indexOf(alien) != 0)
+        Rectangle2D boundRect = alien.getBounds2D(true);
+        if (ConquerersGame.aliensAlive.indexOf(alien) != 0
+            && boundRect.getX() != 0
+            && boundRect.getY() != 0)
         {
           ((AlienSprite) alien).hit();
           isAlive = false;

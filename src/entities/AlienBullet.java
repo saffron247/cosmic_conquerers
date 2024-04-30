@@ -1,5 +1,7 @@
 package entities;
 
+import java.awt.geom.Rectangle2D;
+
 import main.ConquerersGame;
 import visual.dynamic.described.RuleBasedSprite;
 import visual.dynamic.described.Sprite;
@@ -47,7 +49,10 @@ public class AlienBullet extends RuleBasedSprite
     // required
     if (antagonists.size() > 0) {
       SpaceshipSprite spaceship = (SpaceshipSprite) antagonists.get(0);
-      if (intersects(spaceship))
+      Rectangle2D boundRect = spaceship.getBounds2D(true);
+      if (intersects(spaceship)
+          && boundRect.getX() != 0
+          && boundRect.getY() != 0)
       {
           spaceship.hit();
 //          System.out.println(spaceship);
