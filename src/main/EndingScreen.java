@@ -13,7 +13,7 @@ import java.awt.event.KeyListener;
 /**
  * Displays the opening screen, and when the spacebar is pressed, the game appears.
  */
-public class EndingScreen extends Stage
+public class EndingScreen extends Stage implements KeyListener
 {
   private static final Color BACKGROUND_COLOR = new Color(0, 0, 0);
   private static final Color WHITE = new Color(255, 255, 255);
@@ -42,6 +42,7 @@ public class EndingScreen extends Stage
     this.ending = new ArcadeFont(GREEN, "", 80, 180, 300);
     this.score = new ArcadeFont(GREEN, "", 80, 70, 450);
 
+
     add(ending);
     add(score);
 
@@ -58,6 +59,34 @@ public class EndingScreen extends Stage
   {
     ending.changeString(won ? "YOU   WIN!" : "GAME   OVER");
     score.changeString("FINAL   SCORE   " + statsScreen.getScore());
+  }
+
+  // if space restart the game, enter quit
+  @Override
+  public void keyPressed(final KeyEvent e)
+  {
+    if (e.getKeyCode() == KeyEvent.VK_SPACE)
+    {
+      new ConquerersGame();
+    }
+    else if (e.getKeyCode() == KeyEvent.VK_ENTER)
+    {
+      System.exit(0);
+    }
+  }
+
+  @Override
+  public void keyTyped(KeyEvent e)
+  {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
+  }
+
+  @Override
+  public void keyReleased(KeyEvent e)
+  {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
   }
 
 }
