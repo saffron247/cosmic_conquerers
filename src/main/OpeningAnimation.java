@@ -20,8 +20,9 @@ public class OpeningAnimation extends Screen implements KeyListener
   
   /**
    * Constructor for the opening screen.
-   * @param game
-   * @param stats
+   * 
+   * @param game The game screen
+   * @param stats The stats screen
    */
   public OpeningAnimation(final ConquerersGame game, final StatsScreen stats)
   { 
@@ -49,14 +50,15 @@ public class OpeningAnimation extends Screen implements KeyListener
   @Override
   public void keyTyped(final KeyEvent e)
   {
+    // N/A
   }
 
   @Override
   public void keyPressed(final KeyEvent e)
   {
-    if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+    if (e.getKeyCode() == KeyEvent.VK_SPACE)
+    {
       // Space key pressed
-      System.out.println("Space key pressed on Screen");
       getView().setVisible(false);
       stop();
       gameScreen.getView().setVisible(true);
@@ -69,7 +71,6 @@ public class OpeningAnimation extends Screen implements KeyListener
   @Override
   public void keyReleased(final KeyEvent e)
   {
-    // TODO Auto-generated method stub
-    
+    // N/A
   }
 }

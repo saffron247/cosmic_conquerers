@@ -74,7 +74,6 @@ public class ConquerersApplication extends JApplication
    */
   public static void gameOver(final boolean won)
   {
-    System.out.println("Game Over Called");
     gameScreen.getView().setVisible(false);
     gameScreen.stop();
     statsScreen.getView().setVisible(false);
