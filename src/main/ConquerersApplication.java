@@ -1,23 +1,29 @@
 package main;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
 import app.JApplication;
 import visual.VisualizationView;
 
-public class ConquerersApplication extends JApplication implements ActionListener
+/**
+ * The JApplication launcher for Cosmic Conquerers.
+ */
+public class ConquerersApplication extends JApplication
 {
   private static final int WIDTH = 800;
   private static final int HEIGHT = 800;
   private static ConquerersGame gameScreen;
-  private static StatsScreen statsScreen;
-  private final OpeningAnimation openingAnimation;
   private static EndingScreen endingScreen;
+  private static OpeningAnimation openingAnimation;
+  private static StatsScreen statsScreen;
 
+  /**
+   * Base Constructor.
+   * 
+   * @param args Runtime arguments
+   */
   public ConquerersApplication(final String[] args)
   {
     super(WIDTH, HEIGHT);
@@ -26,14 +32,7 @@ public class ConquerersApplication extends JApplication implements ActionListene
     openingAnimation = new OpeningAnimation(gameScreen, statsScreen);
     endingScreen = new EndingScreen(gameScreen, statsScreen);
   }
-  
-  @Override
-  public void actionPerformed(ActionEvent e)
-  {
-    // TODO Auto-generated method stub
-    
-  }
-  
+
   @Override
   public void init()
   {
@@ -43,6 +42,7 @@ public class ConquerersApplication extends JApplication implements ActionListene
     
     contentPane.setBackground(new Color(0, 0, 0));
     
+    // Add the title screen
     VisualizationView animationView = openingAnimation.getView();
     animationView.setBounds(0, 0, WIDTH, HEIGHT);
     animationView.addKeyListener(openingAnimation);
@@ -60,14 +60,20 @@ public class ConquerersApplication extends JApplication implements ActionListene
     statsView.setVisible(false);
     contentPane.add(statsView);
 
-    // Add the Ending Screen
+    // Add the ending screen
     VisualizationView endingView = endingScreen.getView();
     endingView.setBounds(0, 0, WIDTH, HEIGHT);
     endingView.setVisible(false);
     contentPane.add(endingView);
   }
 
-  public static void gameOver(final boolean won) {
+  /**
+   * End the game.
+   * 
+   * @param won True if the player has won the game; false otherwise
+   */
+  public static void gameOver(final boolean won)
+  {
     System.out.println("Game Over Called");
     gameScreen.getView().setVisible(false);
     gameScreen.stop();
@@ -77,7 +83,13 @@ public class ConquerersApplication extends JApplication implements ActionListene
     endingScreen.getView().setVisible(true);
   }
 
-  public static StatsScreen getStatScreen() {
+  /**
+   * Get the statsScreen.
+   * 
+   * @return The statsScreen
+   */
+  public static StatsScreen getStatScreen()
+  {
     return statsScreen;
   }
   
