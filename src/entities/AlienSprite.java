@@ -75,36 +75,6 @@ public class AlienSprite extends AbstractSprite
   }
 
   /**
-   * Get the width.
-   * 
-   * @return Width
-   */
-  public int getWidth()
-  {
-    return WIDTH;
-  }
-
-  /**
-   * Get the height.
-   * 
-   * @return Height
-   */
-  public int getHeight()
-  {
-    return HEIGHT;
-  }
-
-  /**
-   * Get the damage.
-   * 
-   * @return Damage
-   */
-  public int getDamage()
-  {
-    return damage;
-  }
-
-  /**
    * Gets hit.
    * 
    * @throws IOException
