@@ -1,20 +1,10 @@
 package entities;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Sequence;
-import javax.sound.midi.Sequencer;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 import io.ResourceFinder;
 import main.ConquerersApplication;
@@ -30,25 +20,23 @@ import java.util.Random;
 public class AlienSprite extends AbstractSprite
 {
 
+  private static int movement = 10;
   private static final int WIDTH = 150;
   private static final int HEIGHT = 75;
   private static boolean goRight = true;
   private static boolean goDown = false;
+  private static final String ALIEN = "alien";
+  private static final String PNG = "1.png";
   private static double rightest = Double.NEGATIVE_INFINITY;
   private static double leftest = Double.POSITIVE_INFINITY;
-  private static boolean setMoveChange = false;
   private final Random rand;
   private int damage;
-  public TransformableContent content;
+  private TransformableContent content;
   private ResourceFinder finder;
-  private InputStream is;
-  private Sequence seq;
-  private Sequencer sequencer;
   private double x;
   private double y;
   private int tickCount = 0;
   private int tickStep = 4;
-  private static int movement = 10;
   private boolean last;
   private ContentFactory contentFactory;
   private int row;
@@ -64,8 +52,11 @@ public class AlienSprite extends AbstractSprite
    *          Col
    * @param last
    *          Last
+   * @param bulletPool
+   *         Bullet pool
    */
-  public AlienSprite(final int row, final int col, final boolean last, List<AlienBullet>bulletPool)
+  public AlienSprite(final int row, final int col, final boolean last, 
+      final List<AlienBullet> bulletPool)
   {
     super();
     damage = 5 - row;
@@ -74,7 +65,7 @@ public class AlienSprite extends AbstractSprite
 
     finder = ResourceFinder.createInstance(new resources.Marker());
     contentFactory = new ContentFactory(finder);
-    content = contentFactory.createContent("alien" + row + "1.png");
+    content = contentFactory.createContent(ALIEN + row + PNG);
     this.x = col * WIDTH + 160;
     this.y = row * HEIGHT - 75;
     setLocation(x, y);
@@ -127,7 +118,7 @@ public class AlienSprite extends AbstractSprite
     {
       setVisible(false);
       isAlive = false;
-      ConquerersGame.aliensAlive.remove(this);
+      ConquerersGame.getAliensAlive().remove(this);
     }
     ConquerersApplication.getStatScreen().changeScore(100);
   }
@@ -160,14 +151,15 @@ public class AlienSprite extends AbstractSprite
           goDown = false;
         }
       }
-      
+
       // Setting overall bounds of aliens
       rightest = Math.max(x, rightest);
       leftest = Math.min(x, leftest);
       setLocation(x, y);
     }
     // Gets to bottom aka lose
-    if (last && y == 500) {
+    if (last && y == 500)
+    {
       ConquerersApplication.gameOver(false);
     }
     // Hits right wall
@@ -184,21 +176,22 @@ public class AlienSprite extends AbstractSprite
       goDown = true;
       leftest = Double.POSITIVE_INFINITY;
     }
-    
+
     // changes the content
     if (tickCount % 8 < 4)
     {
-      content = contentFactory.createContent("alien" + row + "2.png");
+      content = contentFactory.createContent(ALIEN + row + "2.png");
     }
     else
     {
-      content = contentFactory.createContent("alien" + row + "1.png");
+      content = contentFactory.createContent(ALIEN + row + PNG);
     }
 
-    if (isAlive && ConquerersGame.aliensAlive.indexOf(this) != 0 && rand.nextInt(100) == 1)
+    if (isAlive && ConquerersGame.getAliensAlive().indexOf(this) != 0 && rand.nextInt(100) == 1)
     {
-      TransformableContent content = contentFactory.createContent("ziggy-bullet.png");
-      AlienBullet bullet = new AlienBullet(content, x + 25, y + 20, ConquerersGame.aliensAlive.indexOf(this));
+      content = contentFactory.createContent("ziggy-bullet.png");
+      AlienBullet bullet = new AlienBullet(content, x + 25, y + 20,
+          ConquerersGame.getAliensAlive().indexOf(this));
       bulletPool.add(bullet);
     }
 
